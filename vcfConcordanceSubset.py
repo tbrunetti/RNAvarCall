@@ -62,8 +62,8 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Generate files to extract SNPs called across multiple aligners.')
 	parser.add_argument('--samples', required=True, type=str, help="Comma-separated list of bgzip and tabix indexed vcf files for which commonly called snps are to be reported.")
 	parser.add_argument('--prefix', default="", type=str, help="String prefix for file output name")
-	parser.add_argument('--minimumConcordance', default=0, help="The minimum number of samples/aligners for a snp to be considered reported as concordant.  Default is all samples (set to 0).")
-	parser.add_argument('--maximumConcordance', default=0, help="The maximum number of samples/aligners for a snp to be considered reported as concordant.  Default is all samples (set to 0).")
+	parser.add_argument('--minimumConcordance', default=0, type=int, help="The minimum number of samples/aligners for a snp to be considered reported as concordant.  Default is all samples (set to 0).")
+	parser.add_argument('--maximumConcordance', default=0, type=int, help="The maximum number of samples/aligners for a snp to be considered reported as concordant.  Default is all samples (set to 0).")
 	args = parser.parse_args()
 
 	parseSamples(args.samples, args.minimumConcordance, args.maximumConcordance)
