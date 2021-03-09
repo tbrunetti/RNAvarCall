@@ -33,9 +33,11 @@ def allConcordant(snps, minVal, maxVal, outPrefix):
 	commonVars = []
 	countAllVars = collections.Counter(snps)
 
-	output = open(outPrefix + "_min_" + str(minVal) + "_max_" + str(maxVal) + "_concordant.txt", 'w')
+	#output = open(outPrefix + "_min_" + str(minVal) + "_max_" + str(maxVal) + "_concordant.txt", 'w')
+	bcftoolsOutput = open(outPrefix + "_min_" + str(minVal) + "_max_" + str(maxVal) + "_concordant_bcftools_format.txt", 'w')
 
-	print("A peek at the top 5 snps:c", countAllVars.most_common(5))
+
+	print("A peek at the top 5 most concordant snps: ", countAllVars.most_common(5))
 	for key,val in countAllVars.items():
 		if ((val >= minVal) and (val <= maxVal)):
 			commonVars.append(key)
@@ -43,8 +45,11 @@ def allConcordant(snps, minVal, maxVal, outPrefix):
 	with open(outPrefix + "_min_" + str(minVal) + "_max_" + str(maxVal) + "_concordant.txt", 'w') as outFile:
 		for snps in commonVars:
 			outFile.write('\t'.join(snps.split('\t')) + '\n')
+			bcftoolsOutput.write(snps.split('\t')[0] + ":" + snps.split('\t')[1] + '\n')
 		outFile.flush()
+		bcftoolsOutput.flush()
 
+	bcftoolsOutput.close()
 
 def parseSamples(sampleList, minConc, maxConc):
 	allSnps = []
